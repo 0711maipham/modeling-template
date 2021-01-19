@@ -33,21 +33,58 @@ export function AuthProvider({ children }) {
         return currentUser.updatePassword(password)
     }
 
-    //Update a field of the admin doc in the database
-    function updateContent(field, val) {
-       return firebase.firestore().collection('admin').doc(adminId).update(field, val);
+    //Update the admin doc in the database
+    function updateContent(val) {
+        console.log(val);
+       return firebase.firestore().collection('admin').doc(adminId).update({
+           firstName: val.firstName,
+           middleName: val.middleName,
+           lastName: val.lastName,
+           email: val.email,
+           phone: val.phone,
+           height: val.height,
+           waist: val.waist,
+           hip: val.hip,
+           bust: val.bust,
+           hair: val.hair,
+           eyes: val.eyes,
+           bio: val.bio,
+           shoe: val.shoe
+       });
     }
 
-    function updatePhotos(val) {
+    function updatePhotos(val, destination) {
+        let obj = {
+            alt: "",
+            caption: "",
+            url: val
+        }
         return firebase.firestore().collection('admin').doc(adminId).update(
             {
                 photos: firebase.firestore.FieldValue.arrayUnion(val)
             }
+        ).then(
+            addToGalleryDigitals(obj, destination)
         );
     }
 
-    function updateGallery(val) {
-        return firebase.firestore().collection('admin').doc(adminId).update("gallery", val);
+    function addToGalleryDigitals(obj, destination) {
+        const method = destination == "gallery" ? firebase.firestore().collection('admin').doc(adminId).update(
+            {
+                gallery: firebase.firestore.FieldValue.arrayUnion(obj)
+            }
+        ) :
+        firebase.firestore().collection('admin').doc(adminId).update(
+            {
+                digitals: firebase.firestore.FieldValue.arrayUnion(obj)
+            }
+        )
+        return method;
+    }
+
+    function updateGalleryDigitals(val, destination) {
+        console.log(val, destination)
+        return firebase.firestore().collection('admin').doc(adminId).update(destination, val);
     }
 
     function updateDigitals(val) {
@@ -74,7 +111,7 @@ export function AuthProvider({ children }) {
         updatePassword,
         updateContent,
         updatePhotos,
-        updateGallery,
+        updateGalleryDigitals,
         updateDigitals,
     }
 

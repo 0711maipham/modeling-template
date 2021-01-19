@@ -1,7 +1,12 @@
 import '../App.css';
 import React, { useState, useEffect } from 'react'
 import Login from "./Login"
-import Upload from "./Upload"
+import Admin from "./Admin/Admin"
+import Homepage from "./Homepage/Homepage"
+import About from "./About/About"
+import Gallery from "./Portfolio/Gallery"
+import Digitals from "./Portfolio/Digitals"
+import Contact from "./Contact/Contact"
 import PrivateRoute from './PrivateRoute'
 import { AuthProvider } from "../contexts/AuthContext"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
@@ -13,7 +18,7 @@ function App() {
 
   //Pulls Site Data from "Admin" firebase collection
   useEffect(() => {
-    const unsubscribe = firebase.firestore().collection('admin').doc(adminId).get().then((docRef) => { setProfile(docRef.data()) });
+    const unsubscribe = firebase.firestore().collection('admin').doc(adminId).onSnapshot((docRef) => { setProfile(docRef.data()) });
     return unsubscribe
   }, []
   )
@@ -23,8 +28,13 @@ function App() {
       <AuthProvider>
         <div className="w-100" style={{ maxWidth: '100%' }}>
           <Switch>
-            <PrivateRoute exact path="/" component={Upload} profile={profile} />
+            <PrivateRoute exact path="/admin" component={Admin} profile={profile} />
             <Route path="/login" component={Login} />
+            <Route path="/" component={Homepage} />
+            <Route path="/about" component={About} />
+            <Route path="/gallery" component={Gallery} />
+            <Route path="/digitals" component={Digitals} />
+            <Route path="/contact" component={Contact} />
           </Switch>
         </div>
       </AuthProvider>
