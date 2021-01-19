@@ -87,10 +87,19 @@ export function AuthProvider({ children }) {
         return firebase.firestore().collection('admin').doc(adminId).update(destination, val);
     }
 
-    function updateDigitals(val) {
-        return firebase.firestore().collection('admin').doc(adminId).update("digitals", val);
+    function deleteFromGalleryDigitals(obj, destination) {
+        const method = destination == "gallery" ? firebase.firestore().collection('admin').doc(adminId).update(
+            {
+                gallery: firebase.firestore.FieldValue.arrayRemove(obj)
+            }
+        ) :
+        firebase.firestore().collection('admin').doc(adminId).update(
+            {
+                digitals: firebase.firestore.FieldValue.arrayRemove(obj)
+            }
+        )
+        return method;
     }
-
 
 
     useEffect(() => {
@@ -112,7 +121,7 @@ export function AuthProvider({ children }) {
         updateContent,
         updatePhotos,
         updateGalleryDigitals,
-        updateDigitals,
+        deleteFromGalleryDigitals
     }
 
     return (
