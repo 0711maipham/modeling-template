@@ -6,7 +6,7 @@ import PhotoPreview from './PhotoPreview'
 
 function Upload(props) {
     const { profile, destination } = props;
-    const { updatePhotos, updateGalleryDigitals } = useAuth();
+    const { updatePhotos, updateGalleryDigitals, deleteFromGalleryDigitals } = useAuth();
     const [success, setSuccess] = useState(true);
     const [loading, setLoading] = useState(false)
     const [filesLength, setFilesLength] = useState(0); // # of files in an upload batch
@@ -109,6 +109,7 @@ function Upload(props) {
             <PhotoPreview
                 photos={destination == "gallery" ? profile.gallery : profile.digitals}
                 update={updateGalleryDigitals}
+                deletePhoto={deleteFromGalleryDigitals}
                 destination={destination} />
         </Card>
     );
