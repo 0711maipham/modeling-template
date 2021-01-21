@@ -5,7 +5,7 @@ import { Button } from 'react-bootstrap'
 import cuid from 'cuid'
 
 function PhotoPreview(props) {
-    const { photos, update, destination } = props;
+    const { photos, update, deletePhoto, destination } = props;
     const [photoArray, setPhotoArray] = useState(photos);
 
     useEffect(() => {
@@ -16,7 +16,7 @@ function PhotoPreview(props) {
         <div className="item">
             <div className="inner-item">
                 <img className="photo-preview" src={value.url} />
-                <Button onClick={handleDelete} >Delete</Button>
+                <Button onClick={()=>handleDelete(value)} >Delete</Button>
             </div>
         </div>
     ));
@@ -40,8 +40,8 @@ function PhotoPreview(props) {
         update(photoArray, destination);
     }
 
-    function handleDelete() {
-        console.log("Deleeeete");
+    function handleDelete(value) {
+        deletePhoto(value, destination);
     }
 
     return (
