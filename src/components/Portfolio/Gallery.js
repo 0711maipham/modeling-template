@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react'
-import { Card } from "react-bootstrap"
+import { Container, Row, Col, Card } from "react-bootstrap"
 
 function Gallery(props) {
     const { profile } = props;
 
     return (
-        <>
-            Welcome to Gallery
-        </>
+        <Container>
+        <Row>
+            <Col sm={{ span: 10, offset: 1 }}>
+
+            </Col>
+        </Row>
+        </Container>
     )
 };
 

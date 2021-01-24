@@ -8,6 +8,7 @@ import Gallery from "./Portfolio/Gallery"
 import Digitals from "./Portfolio/Digitals"
 import Contact from "./Contact/Contact"
 import PrivateRoute from './PrivateRoute'
+import Nav from './Navigation/Nav'
 import { AuthProvider } from "../contexts/AuthContext"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import firebase from 'firebase/app'
@@ -26,6 +27,7 @@ function App() {
   return (
     <Router>
       <AuthProvider>
+        <Nav />
         <div className="w-100" style={{ maxWidth: '100%' }}>
           <Switch>
             <PrivateRoute exact path="/admin" component={Admin} profile={profile} />
