@@ -1,7 +1,9 @@
 import { Card } from "react-bootstrap"
 import React, { useRef, useState, useEffect } from 'react'
+import { Alert, Button } from 'react-bootstrap'
 import { useAuth } from '../../contexts/AuthContext'
 import axios from 'axios'
+import cuid from 'cuid'
 import PhotoPreview from './PhotoPreview'
 
 function Upload(props) {
@@ -9,6 +11,8 @@ function Upload(props) {
     const { updatePhotos, updateGalleryDigitals, deleteFromGalleryDigitals } = useAuth();
     const [success, setSuccess] = useState(true);
     const [loading, setLoading] = useState(false)
+    const [error, setError] = useState("");
+    const [show, setShow] = useState(true);
     const [filesLength, setFilesLength] = useState(0); // # of files in an upload batch
     const [photos, setPhotos] = useState(profile.photos);
     const fileRef = useRef();
@@ -45,7 +49,7 @@ function Upload(props) {
                 )
         }
         catch {
-
+            setError("There was an error uploading your file.")
         }
     }
 
@@ -53,11 +57,11 @@ function Upload(props) {
     function upload(file, i) {
         // Split the filename to get the name and type
         let fileParts = file.name.split('.');
-        let fileName = fileParts[0];
+        //let fileName = fileParts[0];
         let fileType = fileParts[1];
         console.log("Preparing the upload");
         return axios.post("http://localhost:3001/sign_s3", {
-            fileName: fileName,
+            fileName: cuid(),
             fileType: fileType
         })
             .then(response => {
@@ -82,11 +86,11 @@ function Upload(props) {
                         )
                     })
                     .catch(error => {
-                        alert("ERROR " + JSON.stringify(error));
+                        setError("There was an error uploading your file. " + JSON.stringify(error));
                     })
             })
             .catch(error => {
-                alert(JSON.stringify(error));
+                setError("There was an error uploading your file. " + JSON.stringify(error));
             })
     }
 
@@ -94,17 +98,10 @@ function Upload(props) {
         <Card>
             <center>
                 <h1>UPLOAD A FILE</h1>
-                {/* {profile.photos ? profile.photos.map((url) => {
-                    return (
-                        <div style={{ padding: 10 }}>
-                            <a href={url}>{url}</a>
-                            <br />
-                        </div>
-                    )
-                }) : null} */}
+                {error && <Alert variant="danger" onClose={() => setShow(false)} dismissable>{error}</Alert>}
                 <input multiple onChange={handleChange} ref={fileRef} type="file" accept=".jpg,.png,.jpeg" />
                 <br />
-                <button disabled={loading || filesLength == 0} onClick={handleUpload}>{!loading ? "Upload" : "Uploading..."}</button>
+                <Button disabled={loading || filesLength == 0} onClick={handleUpload}>{!loading ? "Upload" : "Uploading..."}</Button>
             </center>
             <PhotoPreview
                 photos={destination == "gallery" ? profile.gallery : profile.digitals}

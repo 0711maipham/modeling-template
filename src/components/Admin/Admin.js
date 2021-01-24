@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Card } from "react-bootstrap"
+import { Row, Col, Card } from "react-bootstrap"
 import Upload from './Upload'
 import EditProfile from './EditProfile'
 
@@ -7,7 +7,8 @@ function Admin(props) {
     const { profile } = props;
 
     return (
-        <>
+        <Row>
+            <Col sm={{ span: 10, offset: 1 }}>
             <Card>
                 <Card.Header>Edit Profile</Card.Header>
                 <Card.Body>
@@ -34,8 +35,8 @@ function Admin(props) {
                     />
                 </Card.Body>
             </Card>
-
-        </>
+            </Col>
+        </Row>
     )
 };
 

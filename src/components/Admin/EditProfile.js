@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useAuth } from '../../contexts/AuthContext'
-import { Button, Form, Row, Col } from 'react-bootstrap'
+import { Alert, Button, Form, Row, Col } from 'react-bootstrap'
 import ReactQuill from 'react-quill'
 import Parser from 'html-react-parser'
 import 'react-quill/dist/quill.snow.css'
@@ -8,7 +8,9 @@ import 'react-quill/dist/quill.snow.css'
 function EditProfile(props) {
     const { profile } = props;
     const { updateContent } = useAuth();
+    const [message, setMessage] = useState("");
     const [error, setError] = useState("");
+    const [show, setShow] = useState(true);
     const [loading, setLoading] = useState(false);
     const [bio, setBio] = useState(profile.bio);
     const firstNameRef = useRef();
@@ -63,10 +65,10 @@ function EditProfile(props) {
 
         try {
             updateContent(newContent)
+            setMessage("Information updated successfully!")
         }
         catch {
             setError("Unable to update information.")
-            alert("error updating info")
         }
         setLoading(false);
 
@@ -74,6 +76,8 @@ function EditProfile(props) {
 
     return (
         <>
+            {error && <Alert variant="danger" onClose={() => setError("")} dismissible>{error}</Alert>}
+            {message && <Alert variant="success" onClose={() => setMessage("")} dismissible>{message}</Alert>}
             <Form onSubmit={handleSubmit}>
                 <Row>
                     <Col sm="4">
