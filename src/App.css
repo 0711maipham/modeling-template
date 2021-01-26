@@ -105,3 +105,23 @@
     background-color: rgba(255, 255, 255, 0.8);
     cursor: row-resize;
 }
+
+.carousel .slide {
+  background-color: #333 !important;
+  max-height: 900px !important;
+}
+
+.carousel-photo {
+  height: 900px;
+  width: auto;
+}
+
+.carousel-photo img {
+  height: 100%; 
+  width: 100%; 
+  object-fit: contain
+}
+
+.carousel.carousel-slider .control-arrow:before {
+  color: #000 !important;
+}
