@@ -1,12 +1,36 @@
 import React, { useState, useEffect } from 'react'
-import { Card } from "react-bootstrap"
+import { Container, Row, Col, Card } from 'react-bootstrap'
+import { Carousel } from 'react-responsive-carousel';
 
 function Digitals(props) {
     const { profile } = props;
+    const [photos, setPhotos] = useState();
+
+    useEffect(() => {
+        setPhotos(profile.digitals);
+    }, [profile.digitals])
 
     return (
         <>
-            Welcome to Gallery
+            <Row>
+                <Col sm={{ span: 12, offset: 0 }}>
+                    <Carousel 
+                        >
+                        {
+                            photos ? photos.map((photo) => {
+                                return (
+                                    <div className="carousel-photo">
+                                    <img src={photo.url} />
+                                    </div>
+                                )
+                            }) :
+                            <div>
+                                <img />
+                            </div>
+                        }
+                    </Carousel>
+                </Col>
+            </Row>
         </>
     )
 };

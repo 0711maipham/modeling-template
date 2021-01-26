@@ -77,7 +77,7 @@ function Upload(props) {
                 };
                 axios.put(signedRequest, file, options)
                     .then(result => {
-                        updatePhotos(newUrl, destination).then(() => {
+                        updatePhotos(newUrl, destination, profile).then(() => {
                             if ((i + 1) == filesLength) { //Tell the state upload is finished after last file is uploaded
                                 setLoading(false);
                                 fileRef.current.value = [];

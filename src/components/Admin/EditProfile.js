@@ -26,6 +26,10 @@ function EditProfile(props) {
     const eyesRef = useRef();
     const bioRef = useRef();
     const bustRef = useRef();
+    const facebookRef = useRef();
+    const twitterRef = useRef();
+    const instagramRef = useRef();
+    const schedulingRef = useRef();
 
     useEffect(() => {
         setBio(profile.bio);
@@ -61,6 +65,10 @@ function EditProfile(props) {
             eyes: eyesRef.current.value,
             bio: bio,
             bust: bustRef.current.value,
+            facebook: facebookRef.current.value,
+            twitter: twitterRef.current.value,
+            instagram: instagramRef.current.value,
+            scheduling: schedulingRef.current.value
         }
 
         try {
@@ -110,6 +118,33 @@ function EditProfile(props) {
                         <Form.Group id="phone">
                             <Form.Label>Phone Number</Form.Label>
                             <Form.Control type="text" ref={phoneRef} maxLength={50} defaultValue={profile.phone} />
+                        </Form.Group>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col sm="3">
+                        <Form.Group id="facebook">
+                            <Form.Label>Facebook URL</Form.Label>
+                            <Form.Control type="text" ref={facebookRef} maxLength={100} defaultValue={profile.facebook} />
+                        </Form.Group>
+                    </Col>
+                    <Col sm="3">
+                        <Form.Group id="twitter">
+                            <Form.Label>Twitter URL</Form.Label>
+                            <Form.Control type="text" ref={twitterRef} maxLength={100} defaultValue={profile.twitter} />
+                        </Form.Group>
+                    </Col>
+                    <Col sm="3">
+                        <Form.Group id="instagram">
+                            <Form.Label>Instagram URL</Form.Label>
+                            <Form.Control type="text" ref={instagramRef} maxLength={100} defaultValue={profile.instagram} />
+                        </Form.Group>
+
+                    </Col>
+                    <Col sm="3">
+                        <Form.Group id="scheduling">
+                            <Form.Label>Calendly URL</Form.Label>
+                            <Form.Control type="text" ref={schedulingRef} maxLength={100} defaultValue={profile.scheduling} />
                         </Form.Group>
                     </Col>
                 </Row>
@@ -167,7 +202,14 @@ function EditProfile(props) {
                             {/* <Form.Control as="textarea" ref={bioRef} maxLength={10} defaultValue={profile.bio} /> */}
                             <ReactQuill theme="snow" value={bio || profile.bio} onChange={setBio} modules={modules}/>
                         </Form.Group>
-                        {Parser(profile.bio || "")}
+                    </Col>
+                </Row>
+                <Row>
+                    <Col sm="12">
+                        <Form.Label>Bio Preview</Form.Label>
+                        <div>
+                            {Parser(profile.bio || "")}
+                        </div>
                     </Col>
                 </Row>
                 <Row>

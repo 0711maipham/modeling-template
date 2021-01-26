@@ -32,11 +32,21 @@ function App() {
           <Switch>
             <PrivateRoute exact path="/admin" component={Admin} profile={profile} />
             <Route path="/login" component={Login} />
-            <Route path="/" component={Homepage} />
-            <Route path="/about" component={About} />
-            <Route path="/gallery" component={Gallery} />
-            <Route path="/digitals" component={Digitals} />
-            <Route path="/contact" component={Contact} />
+            <Route exact path="/" render={(props) => (
+              <Homepage {...props} profile={profile} />
+            )} />
+            <Route path="/about" render={(props) => (
+              <About {...props} profile={profile} />
+            )} />
+            <Route exact path="/gallery" render={(props) => (
+              <Gallery {...props} profile={profile} />
+            )} />
+            <Route path="/digitals" render={(props) => (
+              <Digitals {...props} profile={profile} />
+            )} />
+            <Route path="/contact" render={(props) => (
+              <Contact {...props} profile={profile} />
+            )} />
           </Switch>
         </div>
       </AuthProvider>

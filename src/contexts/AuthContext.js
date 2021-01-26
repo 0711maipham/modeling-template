@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { auth } from '../firebase'
 import firebase from 'firebase/app'
+import axios from 'axios'
 
 const AuthContext = React.createContext();
 
@@ -49,13 +50,17 @@ export function AuthProvider({ children }) {
            hair: val.hair,
            eyes: val.eyes,
            bio: val.bio,
-           shoe: val.shoe
+           shoe: val.shoe,
+           facebook: val.facebook,
+           instagram: val.instagram,
+           twitter: val.twitter,
+           scheduling: val.scheduling
        });
     }
 
-    function updatePhotos(val, destination) {
+    function updatePhotos(val, destination, profile) {
         let obj = {
-            alt: "",
+            alt: `Modeling photo of ${profile.firstName} ${profile.lastName}`,
             caption: "",
             url: val
         }
@@ -83,7 +88,6 @@ export function AuthProvider({ children }) {
     }
 
     function updateGalleryDigitals(val, destination) {
-        console.log(val, destination)
         return firebase.firestore().collection('admin').doc(adminId).update(destination, val);
     }
 
@@ -98,7 +102,12 @@ export function AuthProvider({ children }) {
                 digitals: firebase.firestore.FieldValue.arrayRemove(obj)
             }
         )
-        return method;
+        return method
+        // .then(
+        //     axios.delete("http://localhost:3001/s3_delete", {
+        //     fileName: obj.url
+        // })
+        // );
     }
 
 

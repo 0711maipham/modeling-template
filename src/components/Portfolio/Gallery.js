@@ -1,17 +1,37 @@
 import React, { useState, useEffect } from 'react'
-import { Container, Row, Col, Card } from "react-bootstrap"
+import { Container, Row, Col, Card } from 'react-bootstrap'
+import { Carousel } from 'react-responsive-carousel';
 
 function Gallery(props) {
     const { profile } = props;
+    const [photos, setPhotos] = useState();
+
+    useEffect(() => {
+        setPhotos(profile.gallery);
+    }, [profile.gallery])
 
     return (
-        <Container>
-        <Row>
-            <Col sm={{ span: 10, offset: 1 }}>
-
-            </Col>
-        </Row>
-        </Container>
+        <>
+            <Row>
+                <Col sm={{ span: 12, offset: 0 }}>
+                    <Carousel 
+                        >
+                        {
+                            photos ? photos.map((photo) => {
+                                return (
+                                    <div className="carousel-photo">
+                                    <img src={photo.url} />
+                                    </div>
+                                )
+                            }) :
+                            <div>
+                                <img />
+                            </div>
+                        }
+                    </Carousel>
+                </Col>
+            </Row>
+        </>
     )
 };
 
