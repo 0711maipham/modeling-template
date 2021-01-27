@@ -17,9 +17,9 @@ function Digitals(props) {
                     <Carousel 
                         >
                         {
-                            photos ? photos.map((photo) => {
+                            photos ? photos.map((photo, index) => {
                                 return (
-                                    <div className="carousel-photo">
+                                    <div key={index} className="carousel-photo">
                                     <img src={photo.url} />
                                     </div>
                                 )
