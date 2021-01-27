@@ -1,16 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext'
+import { Row, Col } from 'react-bootstrap'
 
-export default function Nav() {
+export default function Footer() {
     const { currentUser } = useAuth();
     return (
         <nav className="Nav">
             <div className="Nav__container mb-5">
-                {/* <Link to="/" className="Nav__brand">
-              <img src="logo.svg" className="Nav__logo" />
-            </Link> */}
-
                 <div className="Nav__right">
                     <ul className="Nav__item-wrapper">
                         <li className="Nav__item">

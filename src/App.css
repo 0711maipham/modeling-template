@@ -1,5 +1,24 @@
 .App {
   text-align: center;
+  height: 100%;
+}
+
+.main-container {
+  position: relative;
+  min-height: 100vh;
+}
+
+.content-wrapper {
+  padding-bottom: 300px;
+}
+
+.footer { 
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: auto;
+  background-color: #2D2D2D;
+  color: #fff;
 }
 
 .Nav__item-wrapper {

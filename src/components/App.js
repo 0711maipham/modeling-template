@@ -9,6 +9,7 @@ import Digitals from "./Portfolio/Digitals"
 import Contact from "./Contact/Contact"
 import PrivateRoute from './PrivateRoute'
 import Nav from './Navigation/Nav'
+import Footer from './Navigation/Footer'
 import { AuthProvider } from "../contexts/AuthContext"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import firebase from 'firebase/app'
@@ -28,7 +29,8 @@ function App() {
     <Router>
       <AuthProvider>
         <Nav />
-        <div className="w-100" style={{ maxWidth: '100%' }}>
+        <div className="w-100 main-container" style={{ maxWidth: '100%' }}>
+          <div className="content-wrapper">
           <Switch>
             <PrivateRoute exact path="/admin" component={Admin} profile={profile} />
             <Route path="/login" component={Login} />
@@ -48,6 +50,8 @@ function App() {
               <Contact {...props} profile={profile} />
             )} />
           </Switch>
+          </div>
+        <Footer profile={profile}/>
         </div>
       </AuthProvider>
     </Router>
